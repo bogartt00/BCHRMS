@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,29 +5,88 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BCHRMS Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            color: white;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .dropdown-menu {
+            background-color: #343a40;
+        }
+        .dropdown-menu a {
+            color: white;
+        }
+        .dropdown-menu a:hover {
+            background-color: #495057;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">BCHRMS</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="changePassword.php">Change Password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container mt-5">
+    <div class="sidebar">
+        <h2 class="text-center">BCHRMS</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="changePassword.php">
+                    <i class="fa-solid fa-lock"></i> Change Password
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+            <!-- New Department Button -->
+            <li class="nav-item">
+                <a class="nav-link" href="department.php">
+                    <i class="fa-solid fa-building"></i> Department
+                </a>
+            </li>
+            <!-- Dropdown for Adding Patients -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-plus"></i> Add Patients
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="addStudent.php">Students</a></li>
+                    <li><a class="dropdown-item" href="addEmployee.php">Employees</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
         <h1>Brokenshire College Health Record Management System</h1>
         
         <!-- Medical Records Summary -->
@@ -72,10 +123,6 @@ if (!isset($_SESSION['user_id'])) {
                 <h3>Viral Disease Cases by Department</h3>
                 <canvas id="diseaseChart"></canvas>
             </div>
-            <div class="col-md-6">
-                <h3>Recent Health Records</h3>
-                <canvas id="recordsChart"></canvas>
-            </div>
         </div>
         
         <!-- Recent Activities -->
@@ -87,30 +134,34 @@ if (!isset($_SESSION['user_id'])) {
             </ul>
         </div>
     </div>
-    <script>
-    var ctx = document.getElementById('diseaseChart').getContext('2d');
-    var diseaseChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Department A', 'Department B', 'Department C'],
-            datasets: [{
-                label: 'Cases of Viral Diseases',
-                data: [12, 19, 3],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctxDisease = document.getElementById('diseaseChart').getContext('2d');
+        new Chart(ctxDisease, {
+            type: 'bar',
+            data: {
+                labels: ['Department A', 'Department B', 'Department C'],
+                datasets: [{
+                    label: 'Cases of Viral Diseases',
+                    data: [12, 19, 3],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });   
+    });
+    </script>
 </body>
 </html>
