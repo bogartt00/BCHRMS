@@ -84,7 +84,8 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="addUser.php">Add admin</a>
+                <a class="nav-link" href="addUser.php">
+                    <i class="fa-brands fa-black-tie"></i>Add admin</a>
         </ul>
     </div>
     
