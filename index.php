@@ -57,12 +57,22 @@
                     <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
-            <!-- New Department Button -->
-            <li class="nav-item">
-                <a class="nav-link" href="department.php">
-                    <i class="fa-solid fa-building"></i> Department
-                </a>
-            </li>
+</li>
+<!-- Dropdown for Department List -->
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-building"></i> Departments
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="dept_nursing.php">Nursing</a></li>
+        <li><a class="dropdown-item" href="dept_medtech.php">Medical Technology</a></li>
+        <li><a class="dropdown-item" href="dept_it.php">Information Technology</a></li>
+        <li><a class="dropdown-item" href="dept_pharmacy.php">Pharmacy</a></li>
+        <li><a class="dropdown-item" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
+        <li><a class="dropdown-item" href="dept_ba.php">Business Administration</a></li>
+    </ul>
+</li>
+
             <!-- Dropdown for Adding Patients -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
