@@ -57,16 +57,6 @@
                     <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="changePassword.php">
-                    <i class="fa-solid fa-lock"></i> Change Password
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="logout.php">
-                    <i class="fa-solid fa-sign-out-alt"></i> Logout
-                </a>
-            </li>
             <!-- New Department Button -->
             <li class="nav-item">
                 <a class="nav-link" href="department.php">
@@ -86,9 +76,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="addUser.php">
                     <i class="fa-brands fa-black-tie"></i>Add admin</a>
+            <li class="nav-item">
+                <a class="nav-link" href="changePassword.php">
+                    <i class="fa-solid fa-lock"></i> Change Password
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
         </ul>
     </div>
-    
     <div class="main-content">
         <h1>Brokenshire College Health Record Management System</h1>
         
