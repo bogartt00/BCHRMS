@@ -13,9 +13,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #343a40;  
+            background-color: #343a40;
             padding-top: 20px;
             color: white;
+            overflow-y: auto; /* Allow scrolling if the content overflows */
         }
         .sidebar a {
             color: white;
@@ -23,6 +24,7 @@
             display: flex;
             align-items: center;
             padding: 10px;
+            width: 100%; /* Ensure the links take up the full width of the sidebar */
         }
         .sidebar a i {
             margin-right: 10px;
@@ -37,22 +39,10 @@
         .card {
             margin-bottom: 20px;
         }
-        .dropdown-menu {
-            background-color: #343a40;
-            border: none; /* Removes the border */
-            width:100%; /* Makes the dropdown width match the sidebar width */
-            padding: 0; /* Removes extra padding to fit within the sidebar */
-        }
-        .dropdown-item {
-            color: white;
-            padding-left: 40px; /* Indents the text for better alignment */
-        }
-        .dropdown-item:hover {
-            background-color: #495057;
-        }
 
-        .collapse.show {
-            display: block !important;
+        /* Styling for dropdown and collapsible content */
+        .collapse-menu {
+            padding-left: 20px;
         }
     </style>
 </head>
@@ -66,32 +56,36 @@
                 </a>
             </li>
 
-            <!-- Dropdown for Department List -->
+            <!-- Departments Dropdown using Collapse -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#deptDropdown" role="button" aria-expanded="false" aria-controls="deptDropdown">
+                <a class="nav-link" data-bs-toggle="collapse" href="#departmentCollapse" role="button" aria-expanded="false" aria-controls="departmentCollapse">
                     <i class="fa-solid fa-building"></i> Departments
                 </a>
-                <ul class="collapse" id="deptDropdown">
-                    <li><a class="dropdown-item" href="dept_nursing.php">Nursing</a></li>
-                    <li><a class="dropdown-item" href="dept_medtech.php">Medical Technology</a></li>
-                    <li><a class="dropdown-item" href="dept_it.php">Information Technology</a></li>
-                    <li><a class="dropdown-item" href="dept_pharmacy.php">Pharmacy</a></li>
-                    <li><a class="dropdown-item" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
-                    <li><a class="dropdown-item" href="dept_ba.php">Business Administration</a></li>
-                </ul>
+                <div class="collapse" id="departmentCollapse">
+                    <ul class="nav flex-column collapse-menu">
+                        <li><a class="nav-link" href="dept_nursing.php">Nursing</a></li>
+                        <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
+                        <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
+                        <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
+                        <li><a class="nav-link" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
+                        <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
+                    </ul>
+                </div>
             </li>
 
-            <!-- Dropdown for Adding Patients -->
+            <!-- Add Patients Dropdown using Collapse -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#patientsDropdown" role="button" aria-expanded="false" aria-controls="patientsDropdown">
+                <a class="nav-link" data-bs-toggle="collapse" href="#addPatientsCollapse" role="button" aria-expanded="false" aria-controls="addPatientsCollapse">
                     <i class="fa-solid fa-user-plus"></i> Add Patients
                 </a>
-                <ul class="collapse" id="patientsDropdown">
-                    <li><a class="dropdown-item" href="addStudent.php">Students</a></li>
-                    <li><a class="dropdown-item" href="addEmployee.php">Employees</a></li>
-                </ul>
+                <div class="collapse" id="addPatientsCollapse">
+                    <ul class="nav flex-column collapse-menu">
+                        <li><a class="nav-link" href="addStudent.php">Students</a></li>
+                        <li><a class="nav-link" href="addEmployee.php">Employees</a></li>
+                    </ul>
+                </div>
             </li>
-            
+
             <li class="nav-item">
                 <a class="nav-link" href="addUser.php">
                     <i class="fa-brands fa-black-tie"></i> Add admin
@@ -161,31 +155,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var ctxDisease = document.getElementById('diseaseChart').getContext('2d');
-        new Chart(ctxDisease, {
-            type: 'bar',
-            data: {
-                labels: ['Department A', 'Department B', 'Department C'],
-                datasets: [{
-                    label: 'Cases of Viral Diseases',
-                    data: [12, 19, 3],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });   
-    });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
