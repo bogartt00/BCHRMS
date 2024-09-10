@@ -13,7 +13,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #343a40;
+            background-color: #343a40;  
             padding-top: 20px;
             color: white;
         }
@@ -39,12 +39,20 @@
         }
         .dropdown-menu {
             background-color: #343a40;
+            border: none; /* Removes the border */
+            width:100%; /* Makes the dropdown width match the sidebar width */
+            padding: 0; /* Removes extra padding to fit within the sidebar */
         }
-        .dropdown-menu a {
+        .dropdown-item {
             color: white;
+            padding-left: 40px; /* Indents the text for better alignment */
         }
-        .dropdown-menu a:hover {
+        .dropdown-item:hover {
             background-color: #495057;
+        }
+
+        .collapse.show {
+            display: block !important;
         }
     </style>
 </head>
@@ -57,35 +65,38 @@
                     <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
-</li>
-<!-- Dropdown for Department List -->
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-building"></i> Departments
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="dept_nursing.php">Nursing</a></li>
-        <li><a class="dropdown-item" href="dept_medtech.php">Medical Technology</a></li>
-        <li><a class="dropdown-item" href="dept_it.php">Information Technology</a></li>
-        <li><a class="dropdown-item" href="dept_pharmacy.php">Pharmacy</a></li>
-        <li><a class="dropdown-item" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
-        <li><a class="dropdown-item" href="dept_ba.php">Business Administration</a></li>
-    </ul>
-</li>
+
+            <!-- Dropdown for Department List -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#deptDropdown" role="button" aria-expanded="false" aria-controls="deptDropdown">
+                    <i class="fa-solid fa-building"></i> Departments
+                </a>
+                <ul class="collapse" id="deptDropdown">
+                    <li><a class="dropdown-item" href="dept_nursing.php">Nursing</a></li>
+                    <li><a class="dropdown-item" href="dept_medtech.php">Medical Technology</a></li>
+                    <li><a class="dropdown-item" href="dept_it.php">Information Technology</a></li>
+                    <li><a class="dropdown-item" href="dept_pharmacy.php">Pharmacy</a></li>
+                    <li><a class="dropdown-item" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
+                    <li><a class="dropdown-item" href="dept_ba.php">Business Administration</a></li>
+                </ul>
+            </li>
 
             <!-- Dropdown for Adding Patients -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#patientsDropdown" role="button" aria-expanded="false" aria-controls="patientsDropdown">
                     <i class="fa-solid fa-user-plus"></i> Add Patients
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="collapse" id="patientsDropdown">
                     <li><a class="dropdown-item" href="addStudent.php">Students</a></li>
                     <li><a class="dropdown-item" href="addEmployee.php">Employees</a></li>
                 </ul>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="addUser.php">
-                    <i class="fa-brands fa-black-tie"></i>Add admin</a>
+                    <i class="fa-brands fa-black-tie"></i> Add admin
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="changePassword.php">
                     <i class="fa-solid fa-lock"></i> Change Password
@@ -98,6 +109,7 @@
             </li>
         </ul>
     </div>
+
     <div class="main-content">
         <h1>Brokenshire College Health Record Management System</h1>
         
