@@ -1,4 +1,5 @@
 <!-- sidebar.php -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     .sidebar {
         height: 100vh;
@@ -54,7 +55,7 @@
                     <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
                     <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
                     <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
-                    <li><a class="nav-link" href="dept_hrm.php">Hotel & Restaurant Management</a></li>
+                    <li><a class="nav-link" href="dept_hm.php">Hotel Management</a></li>
                     <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
                 </ul>
             </div>
