@@ -31,19 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Include the sidebar -->
+    <?php include 'sidebar.php'; ?>
+
     <div class="container mt-5">
-        <h2>Add New User</h2>
-        <form method="POST" action="add_user.php">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+        <div class="row justify-content-center">
+            <!-- Main content (Form) -->
+            <div class="col-md-6">
+                <h2 class="text-center">Add New User</h2>
+                <form method="POST" action="add_user.php">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Add User</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-success">Add User</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>
