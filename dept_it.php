@@ -23,6 +23,14 @@
         <div class="container mt-5">
             <h1>Department of Information Technology</h1>
             <p>Health-related data for the IT Department:</p>
+            
+            <!-- Search Form -->
+            <form action="search.php" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search for students or health records" name="query">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
 
             <div class="row">
                 <div class="col-md-6">
