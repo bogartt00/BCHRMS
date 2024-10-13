@@ -1,0 +1,120 @@
+/* Sidebar styles */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #00c851, #007e33);
+    padding-top: 20px;
+    color: white;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+.collapse-menu {
+    padding-left: 20px;
+}
+
+.main-content {
+    margin-left: 250px; /* This should match the width of the sidebar */
+    padding: 20px;
+}
+
+/* Enhanced table styles */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.table thead th {
+    background-color: #007e33;
+    color: white;
+    text-align: center;
+}
+
+.table tbody td {
+    text-align: center;
+}
+
+/* Pagination customization */
+.pagination {
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.pagination .page-link {
+    color: #007e33;
+    background-color: white;
+    border: 1px solid #007e33;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007e33;
+    color: white;
+    border-color: #007e33;
+}
+
+.pagination .page-link:hover {
+    background-color: #00c851;
+    border-color: #00c851;
+}
+
+/* Form alignment and spacing */
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+form input[type="text"] {
+    width: 300px;
+}
+
+form button {
+    background-color: #007e33;
+    border: none;
+    color: white;
+}
+
+form button:hover {
+    background-color: #00c851;
+}
+
+/* Sidebar adjustments */
+.sidebar a.active {
+    background-color: #004d1a;
+}
+
+.sidebar a:hover {
+    background-color: #004d1a;
+}
+
+.sidebar a i {
+    font-size: 1.2rem;
+}
+
+.sidebar {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}

@@ -34,11 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - BCHRMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
     body {
-        background: linear-gradient(rgba(34, 193, 195, 0.5), rgba(34, 193, 195, 0.5)),
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(rgba(34, 193, 195, 0.7), rgba(34, 193, 195, 0.7)),
                     url('background1.jpg') no-repeat center center fixed;
         background-size: cover;
         height: 100vh;
@@ -48,13 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         overflow: hidden;
     }
     .login-card {
-        background-color: white;
-        padding: 40px; /* Increased padding */
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        padding: 50px; /* Adjusted padding */
+        border-radius: 20px; /* More rounded corners */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Softer shadow */
+        max-width: 400px; /* Increased width */
+        width: 100%;
         animation: fadeIn 1.2s ease-in-out;
-        max-width: 400px; /* Adjusted width */
-        width: 100%; /* Full width within max-width */
     }
     .login-card:hover {
         transform: translateY(-5px);
@@ -71,27 +73,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     .form-control:focus {
-        box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+        border-color: #42a5f5;
+        box-shadow: 0 0 10px rgba(66, 165, 245, 0.3);
     }
     .btn-primary {
-        background: #42a5f5;
+        background: linear-gradient(90deg, #42a5f5 0%, #478ed1 100%);
         border: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(66, 165, 245, 0.3);
+        padding: 10px 20px; /* More padding */
+        margin-top: 10px; /* Space above button */
     }
     .btn-primary:hover {
-        background: #478ed1;
+        background: linear-gradient(90deg, #478ed1 0%, #42a5f5 100%);
     }
     .form-group label {
-        font-weight: bold;
+        font-weight: 600;
+        color: #333;
     }
     .error {
         color: #ff3860;
     }
+    h2 {
+        font-weight: 600;
+        color: #333;
+    }
 </style>
-
 </head>
 <body>
     <div class="login-card">
-        <h2 class="text-center mb-4">Login</h2>
+        <h2 class="text-center mb-4">BCHRMS</h2>
         <?php if ($error): ?>
             <div class="alert alert-danger"><?= $error ?></div>
         <?php endif; ?>
@@ -104,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100">Login</button> <!-- Login Button -->
         </form>
     </div>
 
@@ -112,4 +123,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-

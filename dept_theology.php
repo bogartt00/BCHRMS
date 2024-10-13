@@ -2,7 +2,7 @@
 require 'config.php';
 
 // Get the department and page number from the URL
-$department = 'Information Technology'; // Set dynamically based on the department page
+$department = 'Theology'; // Set dynamically based on the department page
 $page = $_GET['page'] ?? 1; // Default to the first page
 $records_per_page = 10; // Number of records per page
 $offset = ($page - 1) * $records_per_page;

@@ -23,13 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $student_gender = $student['gender'];
 
         // Insert into health_records
-        $stmt = $conn->prepare("INSERT INTO health_records (student_id, student_first_name, student_last_name, student_department, student_age, student_gender, record_type, record_date) VALUES (:student_id, :student_first_name, :student_last_name, :student_department, :student_age, :student_gender, :record_type, :record_date)");
+        $stmt = $conn->prepare("INSERT INTO health_records (student_id, record_type, record_date) VALUES (:student_id, :record_type, :record_date)");
         $stmt->bindParam(':student_id', $student_id);
-        $stmt->bindParam(':student_first_name', $student_first_name);
-        $stmt->bindParam(':student_last_name', $student_last_name);
-        $stmt->bindParam(':student_department', $student_department);
-        $stmt->bindParam(':student_age', $student_age);
-        $stmt->bindParam(':student_gender', $student_gender);
         $stmt->bindParam(':record_type', $record_type);
         $stmt->bindParam(':record_date', $record_date);
 
@@ -101,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <?php if (isset($message)) echo $message; ?>
 
-            <form action="addHealthRecord.php" method="post">
+            <form id="healthRecordForm" action="addHealthRecord.php" method="post">
                 <div class="form-group">
                     <label for="student_first_name" class="form-label">Student First Name</label>
                     <input type="text" class="form-control" id="student_first_name" name="student_first_name" required>
@@ -112,7 +107,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                     <label for="record_type" class="form-label">Record Type</label>
-                    <input type="text" class="form-control" id="record_type" name="record_type" required>
+                    <select class="form-control" id="record_type" name="record_type" required>
+                        <option value="">Select Record Type</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Dental">Dental</option>
+                        <option value="Optical">Optical</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="record_date" class="form-label">Record Date</label>

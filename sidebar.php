@@ -1,5 +1,3 @@
-<!-- sidebar.php -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     .sidebar {
         height: 100vh;
@@ -44,6 +42,7 @@
             </a>
         </li>
 
+        <!-- Departments Dropdown -->
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#departmentCollapse" role="button" aria-expanded="false"
                 aria-controls="departmentCollapse">
@@ -52,15 +51,39 @@
             <div class="collapse" id="departmentCollapse">
                 <ul class="nav flex-column collapse-menu">
                     <li><a class="nav-link" href="dept_nursing.php">Nursing</a></li>
-                    <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
-                    <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
-                    <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
-                    <li><a class="nav-link" href="dept_hm.php">Hotel Management</a></li>
-                    <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
+                    <li>
+                        <a class="nav-link" data-bs-toggle="collapse" href="#alliedHealthCollapse" role="button" aria-expanded="false"
+                            aria-controls="alliedHealthCollapse">
+                            Allied Health
+                        </a>
+                        <div class="collapse" id="alliedHealthCollapse">
+                            <ul class="nav flex-column collapse-menu">
+                                <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
+                                <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link" data-bs-toggle="collapse" href="#asbmCollapse" role="button" aria-expanded="false"
+                            aria-controls="asbmCollapse">
+                            ASBM
+                        </a>
+                        <div class="collapse" id="asbmCollapse">
+                            <ul class="nav flex-column collapse-menu">
+                                <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
+                                <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
+                                <li><a class="nav-link" href="dept_education.php">Education</a></li>
+                                <li><a class="nav-link" href="dept_psychology.php">Psychology</a></li>
+                                <li><a class="nav-link" href="dept_theology.php">Theology</a></li>
+                                <li><a class="nav-link" href="dept_hm.php">Hotel Management</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </li>
 
+        <!-- Add Patients -->
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#addPatientsCollapse" role="button"
                 aria-expanded="false" aria-controls="addPatientsCollapse">
@@ -74,16 +97,36 @@
             </div>
         </li>
 
+        <!-- Add Health Records Dropdown -->
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#examinationCollapse" role="button"
+                aria-expanded="false" aria-controls="examinationCollapse">
+                <i class="fa-solid fa-notes-medical"></i> Add Health Records
+            </a>
+            <div class="collapse" id="examinationCollapse">
+                <ul class="nav flex-column collapse-menu">
+                    <li><a class="nav-link" href="medicalForm.php">Medical Examination</a></li>
+                    <li><a class="nav-link" href="dentalForm.php">Dental Examination</a></li>
+                    <li><a class="nav-link" href="opticalForm.php">Optical Examination</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Add Admin -->
         <li class="nav-item">
             <a class="nav-link" href="addUser.php">
-                <i class="fa-brands fa-black-tie"></i> Add admin
+                <i class="fa-brands fa-black-tie"></i> Add Admin
             </a>
         </li>
+
+        <!-- Change Password -->
         <li class="nav-item">
             <a class="nav-link" href="changePassword.php">
                 <i class="fa-solid fa-lock"></i> Change Password
             </a>
         </li>
+
+        <!-- Logout -->
         <li class="nav-item">
             <a class="nav-link" href="logout.php">
                 <i class="fa-solid fa-sign-out-alt"></i> Logout

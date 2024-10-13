@@ -2,7 +2,7 @@
 require 'config.php';
 
 // Get the department and page number from the URL
-$department = 'Information Technology'; // Set dynamically based on the department page
+$department = 'Psychology'; // Set dynamically based on the department page
 $page = $_GET['page'] ?? 1; // Default to the first page
 $records_per_page = 10; // Number of records per page
 $offset = ($page - 1) * $records_per_page;
@@ -36,7 +36,7 @@ $stmt->bindParam(':department', $department);
 $stmt->bindValue(':query', "%$query%", PDO::PARAM_STR);
 $stmt->execute();
 $total_students = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-$total_pages = ceil($total_students / $records_per_page);
+    $total_pages = ceil($total_students / $records_per_page);
 
 // Handle case where page number exceeds total pages
 if ($page < 1) {
