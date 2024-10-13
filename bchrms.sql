@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2024 at 04:32 PM
+-- Generation Time: Oct 13, 2024 at 11:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,26 +24,94 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `health_records`
+-- Table structure for table `dental_examinations`
 --
 
-CREATE TABLE `health_records` (
+CREATE TABLE `dental_examinations` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `diagnosis` text NOT NULL,
+  `treatment` text NOT NULL,
+  `record_date` date NOT NULL,
+  `teeth_chart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`teeth_chart`)),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `examination_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examinations`
+--
+
+CREATE TABLE `examinations` (
   `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `record_type` varchar(50) NOT NULL,
-  `record_date` date NOT NULL
+  `record_date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `health_records`
+-- Table structure for table `laboratory_examinations`
 --
 
-INSERT INTO `health_records` (`id`, `student_id`, `record_type`, `record_date`) VALUES
-(1, 3, 'Medical Examination', '2024-09-15'),
-(2, 2, 'Dental Examination', '2024-09-04'),
-(3, 1, 'Dental Examination', '2024-09-12'),
-(4, 5, 'Medical Examination', '2024-09-08'),
-(5, 1, 'Medical Examination', '2024-09-10');
+CREATE TABLE `laboratory_examinations` (
+  `examination_id` int(11) NOT NULL,
+  `symptoms` text NOT NULL,
+  `diagnosis` text NOT NULL,
+  `prescription` text DEFAULT NULL,
+  `cbc` varchar(255) DEFAULT NULL,
+  `urinalysis` varchar(255) DEFAULT NULL,
+  `fecalysis` varchar(255) DEFAULT NULL,
+  `chest_xray` varchar(255) DEFAULT NULL,
+  `hepa_b_antigen` varchar(255) DEFAULT NULL,
+  `hepa_b_antibody` varchar(255) DEFAULT NULL,
+  `occult_blood` varchar(255) DEFAULT NULL,
+  `psa` varchar(255) DEFAULT NULL,
+  `mammo` varchar(255) DEFAULT NULL,
+  `pap_test` varchar(255) DEFAULT NULL,
+  `fbs` varchar(255) DEFAULT NULL,
+  `creatinine` varchar(255) DEFAULT NULL,
+  `uric_acid` varchar(255) DEFAULT NULL,
+  `non_fasting_cholesterol` varchar(255) DEFAULT NULL,
+  `ecg` varchar(255) DEFAULT NULL,
+  `record_date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `physical_examinations`
+--
+
+CREATE TABLE `physical_examinations` (
+  `examination_id` int(11) NOT NULL,
+  `weight` decimal(5,2) NOT NULL,
+  `height` decimal(5,2) NOT NULL,
+  `blood_pressure` varchar(10) NOT NULL,
+  `pulse_rate` int(11) NOT NULL,
+  `temperature` decimal(4,2) NOT NULL,
+  `skin` text NOT NULL,
+  `head` text NOT NULL,
+  `eyes_visual_acuity` text NOT NULL,
+  `ears_hearing_test` text NOT NULL,
+  `nose` text NOT NULL,
+  `throat` text NOT NULL,
+  `mouth_tongue` text NOT NULL,
+  `teeth_gums` text NOT NULL,
+  `neck` text NOT NULL,
+  `chest_lungs` text NOT NULL,
+  `breasts` text DEFAULT NULL,
+  `heart` text NOT NULL,
+  `abdomen` text NOT NULL,
+  `testicular_exam` text DEFAULT NULL,
+  `rectal_exam` text DEFAULT NULL,
+  `extremities` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -71,22 +139,14 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `department`, `age`, `g
 (3, 'Leah ', 'Arguelles', 'Information Technology', 21, 'Female', NULL),
 (4, 'Beigemar Jielove', 'Pasa', 'Information Technology', 21, 'Female', NULL),
 (5, 'Feane Nethanel', 'Sibal', 'Information Technology', 21, 'Female', NULL),
-(6, 'Jane', 'Javier', 'Information Technology', 23, 'Female', NULL);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `student_health_records_view`
--- (See below for the actual view)
---
-CREATE TABLE `student_health_records_view` (
-`student_id` int(11)
-,`first_name` varchar(50)
-,`last_name` varchar(50)
-,`record_type` varchar(50)
-,`record_date` date
-,`record_id` int(11)
-);
+(6, 'Jane', 'Javier', 'Information Technology', 23, 'Female', '2024-10-04 23:00:33'),
+(7, 'Barbie Camille', 'Yap', 'Nursing', 23, 'Female', NULL),
+(8, 'Ayumi Kharel', 'Lamigo', 'Medical Technology', 19, 'Female', NULL),
+(9, 'Raine', 'Arellano', 'Pharmacy', 23, 'Female', NULL),
+(10, 'Christian Lloyd', 'Poblador', 'Business Administration', 24, 'Male', NULL),
+(11, 'Jean', 'Urboda', 'Education', 21, 'Female', NULL),
+(12, 'Bryan', 'Alcala', 'Psychology', 21, 'Male', NULL),
+(13, 'Barbie Abegail Kate', 'Wade', 'Theology', 20, 'Female', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,25 +167,36 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (1, 'admin', '$2y$10$ps.D9uD1aEcj1SUPiKy.DuczY5wPoOGCzw0D/Ar9PcwelHezBsY8e');
 
--- --------------------------------------------------------
-
---
--- Structure for view `student_health_records_view`
---
-DROP TABLE IF EXISTS `student_health_records_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `student_health_records_view`  AS SELECT `s`.`id` AS `student_id`, `s`.`first_name` AS `first_name`, `s`.`last_name` AS `last_name`, `hr`.`record_type` AS `record_type`, `hr`.`record_date` AS `record_date`, `hr`.`id` AS `record_id` FROM (`students` `s` left join `health_records` `hr` on(`s`.`id` = `hr`.`student_id`)) ;
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `health_records`
+-- Indexes for table `dental_examinations`
 --
-ALTER TABLE `health_records`
+ALTER TABLE `dental_examinations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `examination_id` (`examination_id`);
+
+--
+-- Indexes for table `examinations`
+--
+ALTER TABLE `examinations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `laboratory_examinations`
+--
+ALTER TABLE `laboratory_examinations`
+  ADD PRIMARY KEY (`examination_id`);
+
+--
+-- Indexes for table `physical_examinations`
+--
+ALTER TABLE `physical_examinations`
+  ADD PRIMARY KEY (`examination_id`);
 
 --
 -- Indexes for table `students`
@@ -144,16 +215,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `health_records`
+-- AUTO_INCREMENT for table `dental_examinations`
 --
-ALTER TABLE `health_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `dental_examinations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `examinations`
+--
+ALTER TABLE `examinations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -166,10 +243,29 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `health_records`
+-- Constraints for table `dental_examinations`
 --
-ALTER TABLE `health_records`
-  ADD CONSTRAINT `health_records_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+ALTER TABLE `dental_examinations`
+  ADD CONSTRAINT `dental_examinations_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `dental_examinations_ibfk_2` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`);
+
+--
+-- Constraints for table `examinations`
+--
+ALTER TABLE `examinations`
+  ADD CONSTRAINT `examinations_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `laboratory_examinations`
+--
+ALTER TABLE `laboratory_examinations`
+  ADD CONSTRAINT `laboratory_examinations_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `physical_examinations`
+--
+ALTER TABLE `physical_examinations`
+  ADD CONSTRAINT `physical_examinations_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
