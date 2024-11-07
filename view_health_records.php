@@ -16,6 +16,7 @@ if ($student_id <= 0) {
 // Fetch dental records for the student
 $dental_stmt = $conn->prepare("SELECT * FROM dental_records WHERE student_id = :student_id");
 $dental_stmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
+$dental_stmt->execute();
 
 // Fetch all records without any errors
 $dental_records = $dental_stmt->fetchAll(PDO::FETCH_ASSOC);

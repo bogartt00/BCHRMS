@@ -1,6 +1,23 @@
-<!-- LAMIGO , MORALES-->
+<!-- LAMIGO , MORALES -->
+<?php
+session_start(); 
+
+// Check if the user is logged in. If not, redirect to login page.
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
+// Prevent browser from caching the page.
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,8 +84,8 @@
         <div class="mt-4">
             <h3>Recent Activities</h3>
             <ul class="list-group">
-                <li class="list-group-item">bogart had a physical exam on 2024-09-05</li>
-                <li class="list-group-item">dodong had a dental exam on 2024-09-04</li>
+                <li class="list-group-item">Bogart had a physical exam on 2024-09-05</li>
+                <li class="list-group-item">Dodong had a dental exam on 2024-09-04</li>
             </ul>
         </div>
     </div>
@@ -114,4 +131,5 @@
         });
     </script>
 </body>
+
 </html>
