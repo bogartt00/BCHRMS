@@ -5,7 +5,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: linear-gradient(135deg, #00c851, #007e33);
+        background: linear-gradient(135deg, #46b046, #268c26);
         padding-top: 20px;
         color: white;
         overflow-y: auto;
@@ -25,16 +25,18 @@
     }
 
     .sidebar a:hover {
-        background-color: #495057;
+        background-color: #3c9c35;
     }
 
     .collapse-menu {
         padding-left: 20px;
     }
 </style>
-
 <div class="sidebar">
-    <h2 class="text-center">BCHRMS</h2>
+    <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <img src="BCHRMS_Logo1.png" alt="BCHRMS Logo" style="width: 50px; height: 50px;">
+        <h2 style="font-size: 1.8em; margin: 0;">BCHRMS</h2>
+    </div>
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link active" href="index.php">
@@ -66,7 +68,7 @@
                     <li>
                         <a class="nav-link" data-bs-toggle="collapse" href="#asbmCollapse" role="button" aria-expanded="false"
                             aria-controls="asbmCollapse">
-                            ASBM
+                            ASBME
                         </a>
                         <div class="collapse" id="asbmCollapse">
                             <ul class="nav flex-column collapse-menu">
@@ -110,6 +112,13 @@
                     <li><a class="nav-link" href="opticalForm.php">Optical Examination</a></li>
                 </ul>
             </div>
+        </li>
+
+          <!-- View HealthRecords -->
+          <li class="nav-item">
+            <a class="nav-link" href="view_health_records.php">
+                <i class="fa-solid fa-book"></i> View Health Records
+            </a>
         </li>
 
         <!-- Add Admin -->
