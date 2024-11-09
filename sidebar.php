@@ -118,14 +118,7 @@
                 </ul>
             </div>
         </li>
-
-          <!-- View HealthRecords -->
-          <li class="nav-item">
-            <a class="nav-link" href="view_health_records.php">
-                <i class="fa-solid fa-book"></i> View Health Records
-            </a>
-        </li>
-
+        
         <!-- Add Admin -->
         <li class="nav-item">
             <a class="nav-link" href="addUser.php">
