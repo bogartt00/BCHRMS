@@ -3,7 +3,12 @@ session_start();
 require 'config.php';
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    // Redirect based on role if already logged in
+    if ($_SESSION['role'] === 'staff') {
+        header('Location: staff_dashboard.php');
+    } else {
+        header('Location: index.php');
+    }
     exit;
 }
 
@@ -13,17 +18,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = :username");
+    // Prepare statement to fetch user details based on username
+    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch();
 
+    // Verify password and role
     if ($user && password_verify($password, $user['password'])) {
         session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
-        $redirect = $_SESSION['redirect_to'] ?? 'index.php';
-        unset($_SESSION['redirect_to']);
-        header("Location: $redirect");
+        $_SESSION['role'] = $user['role']; // store user's role
+
+        // Redirect based on role
+        if ($user['role'] === 'staff') {
+            header('Location: staffD  ashboard.php');
+        } else {
+            header('Location: index.php');
+        }
         exit;
     } else {
         $error = 'Invalid username or password';
@@ -40,51 +52,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-    .gradient-custom-2 {
-        background: linear-gradient(rgba(40, 167, 69, 0.8), rgba(23, 162, 184, 0.8)), 
-                    url('background1.jpg') center/cover no-repeat;
-        color: #fff;
-    }
-
-    @media (min-width: 768px) {
-        .gradient-form {
-            height: 100vh !important;
-        }
-    }
-    @media (min-width: 769px) {
         .gradient-custom-2 {
-            border-top-right-radius: .3rem;
-            border-bottom-right-radius: .3rem;
+            background: linear-gradient(rgba(40, 167, 69, 0.8), rgba(23, 162, 184, 0.8)),
+                        url('background1.jpg') center/cover no-repeat;
+            color: #fff;
         }
-    }
-
-    /* Enhanced styling for input fields */
-    .form-control {
-        border-radius: 1rem;
-        border: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease;
-    }
-    .form-control:focus {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .form-outline label {
-        font-weight: bold;
-        color: #495057;
-    }
-    .btn-custom {
-        background: #17a2b8;
-        color: #fff;
-        border-radius: 1rem;
-        box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
-        transition: background-color 0.3s ease;
-    }
-    .btn-custom:hover {
-        background: #28a745;
-        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.5);
-    }
-</style>
-
+        @media (min-width: 768px) {
+            .gradient-form {
+                height: 100vh !important;
+            }
+        }
+        .form-control {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-control:focus {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-custom {
+            background: #17a2b8;
+            color: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+        }
+        .btn-custom:hover {
+            background: #28a745;
+            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.5);
+        }
+    </style>
 </head>
 <body>
 <section class="h-100 gradient-form" style="background-color: #eee;">
@@ -99,29 +95,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <img src="BCHRMS_Logo.png" style="width: 185px;" alt="logo">
                   <h4 class="mt-1 mb-5 pb-1">Welcome to BCHRMS</h4>
                 </div>
-
                 <form action="" method="POST">
                   <?php if ($error): ?>
                       <p class="text-danger"><?php echo $error; ?></p>
                   <?php endif; ?>
-
                   <div class="form-outline mb-4">
                     <input type="text" name="username" id="form2Example11" class="form-control" placeholder="Enter your username" required />
                     <label class="form-label" for="form2Example11">Username</label>
                   </div>
-
                   <div class="form-outline mb-4">
                     <input type="password" name="password" id="form2Example22" class="form-control" placeholder="Enter your password" required />
                     <label class="form-label" for="form2Example22">Password</label>
                   </div>
-
                   <div class="text-center pt-1 mb-5 pb-1">
                     <button class="btn btn-primary btn-custom btn-block mb-3" type="submit">Log in</button>
                   </div>
                 </form>
               </div>
             </div>
-
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                 <h4 class="mb-4">Welcome to Brokenshire Health Record Management System (BCHRMS)</h4>
@@ -131,7 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 community with efficiency, accuracy, and enhanced data security.</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -141,4 +131,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
