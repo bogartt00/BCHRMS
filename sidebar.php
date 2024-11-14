@@ -32,6 +32,9 @@
         padding-left: 20px;
     }
 </style>
+<head> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 
 <div class="sidebar">
     <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
