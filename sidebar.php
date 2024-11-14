@@ -1,8 +1,3 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
 <style>
     .sidebar {
         height: 100vh;
@@ -37,12 +32,14 @@
         padding-left: 20px;
     }
 </style>
+
 <div class="sidebar">
     <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
         <img src="BCHRMS_Logo1.png" alt="BCHRMS Logo" style="width: 50px; height: 50px;">
         <h2 style="font-size: 1.8em; margin: 0;">BCHRMS</h2>
     </div>
     <ul class="nav flex-column">
+        <!-- Home -->
         <li class="nav-item">
             <a class="nav-link active" href="index.php">
                 <i class="fa-solid fa-house"></i> Home
@@ -59,8 +56,8 @@
                 <ul class="nav flex-column collapse-menu">
                     <li><a class="nav-link" href="dept_nursing.php">Nursing</a></li>
                     <li>
-                        <a class="nav-link" data-bs-toggle="collapse" href="#alliedHealthCollapse" role="button" aria-expanded="false"
-                            aria-controls="alliedHealthCollapse">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#alliedHealthCollapse" role="button"
+                            aria-expanded="false" aria-controls="alliedHealthCollapse">
                             Allied Health
                         </a>
                         <div class="collapse" id="alliedHealthCollapse">
@@ -88,6 +85,13 @@
                     </li>
                 </ul>
             </div>
+        </li>
+
+        <!-- Patients (All Students) -->
+        <li class="nav-item">
+            <a class="nav-link" href="all_students.php">
+                <i class="fa-solid fa-users"></i> Patients
+            </a>
         </li>
 
         <!-- Add Patients -->
@@ -118,7 +122,9 @@
                 </ul>
             </div>
         </li>
-        
+
+
+
         <!-- Add Admin -->
         <li class="nav-item">
             <a class="nav-link" href="addUser.php">
