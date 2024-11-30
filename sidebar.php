@@ -43,8 +43,8 @@
 
         /* Sidebar logo styles */
         .sidebar .text-center img {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             margin-right: 10px; /* Margin between logo and text */
         }
 
@@ -87,7 +87,6 @@
 <div class="sidebar">
     <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
         <img src="BCHRMS_Logo1.png" alt="BCHRMS Logo">
-        <h2>BCHRMS</h2>
     </div>
     <ul class="nav flex-column">
         <!-- Home -->
@@ -163,27 +162,6 @@
         <li class="nav-item">
             <a class="nav-link" href="add_health_record.php">
                 <i class="fa-solid fa-notes-medical"></i> Add Health Record
-            </a>
-        </li>
-
-        <!-- Add Admin -->
-        <li class="nav-item">
-            <a class="nav-link" href="addUser.php">
-                <i class="fa-brands fa-black-tie"></i> Add Admin
-            </a>
-        </li>
-
-        <!-- Change Password -->
-        <li class="nav-item">
-            <a class="nav-link" href="changePassword.php">
-                <i class="fa-solid fa-lock"></i> Change Password
-            </a>
-        </li>
-
-        <!-- Logout -->
-        <li class="nav-item">
-            <a class="nav-link" href="logout.php">
-                <i class="fa-solid fa-sign-out-alt"></i> Logout
             </a>
         </li>
     </ul>
