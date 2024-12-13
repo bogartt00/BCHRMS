@@ -2,54 +2,125 @@
 <html>
 <head>
   <style>
-    table, th, td {
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .container-wrapper {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 20%;
+      background-color: #f4f4f4;
+      padding: 15px;
+      border-right: 1px solid #ddd;
+    }
+
+    .main-content {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Table Styles */
+    table {
       border: 1px solid black;
       border-collapse: collapse;
+      width: 60%;
+      margin: 10px auto;
+    }
+
+    th, td {
+      border: 1px solid black;
       padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Centering Tables */
+    .table-container {
+      display: none;
+    }
+
+    .table-container.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Progress Indicator */
+    #progress-indicator {
       text-align: center;
-      width: 100%;
+      margin: 15px;
+    }
+
+    /* Buttons */
+    button {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
     }
 
     input[type="text"] {
       border: none;
       border-bottom: 1px solid black;
       outline: none;
-      width: 150px; /* Adjusted width for larger inputs */
+      width: 300px; /* Adjusted width for larger inputs */
       vertical-align: middle;
       margin-right: 10px; /* Add spacing between inputs */
     }
 
-    form {
-      margin: 20px;
-    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
 
-    label {
-      display: inline-block;
-      margin-bottom: 10px; /* Add spacing between rows */
-    }
+      .main-content {
+        width: 100%;
+      }
 
-    .table-container {
-      display: none;
-    }
-
-    .table-container.active {
-      display: block;
-    }
-
-    button {
-      margin: 10px;
-      padding: 8px 16px;
-    }
-
-    #progress-indicator {
-      text-align: center;
-      margin: 10px;
+      table {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Part I: To be answered by Student/Faculty/Staff</h1>
-
+  
   <!-- Page 1 -->
   <div id="table1" class="table-container active">
     <h2>Past Medical History</h2>
@@ -128,6 +199,7 @@
       </tr>
     </table>
   </div>
+
 
   <!-- Page 2 -->
   <div id="table2" class="table-container">
@@ -336,7 +408,7 @@
     </form>
   </div>
 
-  <div id="progress-indicator">Page <span id="current-page">1</span> of 3</div>
+  <div id="progress-indicator">Page <span id="current-page">1</span> of 4</div>
   <!-- Navigation Buttons -->
   <div style="text-align: center;">
     <button id="prevButton" onclick="prevPage()">Back</button>
@@ -344,40 +416,43 @@
   </div>
 
   <!-- JavaScript for Navigation -->
-  <script>
-    let currentPage = 1;
-    const totalPages = 4;
+<script>
+  let currentPage = 1;
+  const totalPages = 4;
 
-    function showPage(page) {
-      const tables = document.querySelectorAll('.table-container');
-      tables.forEach((table, index) => {
-        table.classList.toggle('active', index + 1 === page);
-      });
+  function updatePage() {
+    // Hide all tables
+    document.querySelectorAll('.table-container').forEach((table) => {
+      table.classList.remove('active');
+    });
 
-      // Update progress indicator
-      document.getElementById('current-page').textContent = page;
+    // Show the current table
+    document.getElementById(`table${currentPage}`).classList.add('active');
 
-      // Enable/Disable navigation buttons
-      document.getElementById('prevButton').disabled = page === 1;
-      document.getElementById('nextButton').disabled = page === totalPages;
+    // Update progress indicator
+    document.getElementById('current-page').textContent = currentPage;
+
+    // Update button states
+    document.getElementById('prevButton').disabled = currentPage === 1;
+    document.getElementById('nextButton').disabled = currentPage === totalPages;
+  }
+
+  function prevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      updatePage();
     }
+  }
 
-    function nextPage() {
-      if (currentPage < totalPages) {
-        currentPage++;
-        showPage(currentPage);
-      }
+  function nextPage() {
+    if (currentPage < totalPages) {
+      currentPage++;
+      updatePage();
     }
+  }
 
-    function prevPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        showPage(currentPage);
-      }
-    }
-
-    // Initialize
-    showPage(currentPage);
-  </script>
+  // Initialize the page
+  updatePage();
+</script>
 </body>
 </html>
