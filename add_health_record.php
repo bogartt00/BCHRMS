@@ -17,25 +17,19 @@ if ($conn->connect_error) {
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_id = $_POST['student_id'];
-    $examination_type = $_POST['examination_type']; // New field
-    $record_date = $_POST['record_date'];
+    $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : null;
+    $examination_type = isset($_POST['examination_type']) ? $_POST['examination_type'] : null;
+    $record_date = isset($_POST['record_date']) ? $_POST['record_date'] : null;
 
-    // Check if `student_id` is selected
     if (empty($student_id)) {
         echo "<div class='alert alert-danger'>Please select a patient.</div>";
     } else {
         // Insert data into the 'examinations' table
         $stmt = $conn->prepare("INSERT INTO examinations (student_id, examination_type, record_date) VALUES (?, ?, ?)");
-        if (!$stmt) {
-            die("Prepare failed: " . $conn->error);
-        }
-
         $stmt->bind_param("iss", $student_id, $examination_type, $record_date);
 
         if ($stmt->execute()) {
             $examination_id = $stmt->insert_id; // Get the ID of the inserted record
-            // Redirect based on the examination type
             switch ($examination_type) {
                 case "Dental":
                     header("Location: dentalform.php?examination_id=$examination_id");
@@ -50,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: physicalform.php?examination_id=$examination_id");
                     break;
                 default:
-                    echo "<div class='alert alert-warning'>Unknown examination type.</div>";
+                    echo "<div class='alert alert-warning'>Unknown examination type: $examination_type</div>";
                     break;
             }
             exit(); // Ensure no further code executes after the redirect
@@ -60,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -72,18 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Your existing styles */
         body {
-            font-family: Arial, sans-serif;;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 15px;
             padding-left: 250px;
             background-color: #f5f8fa;
-        }
-
-         .navbar {
-            padding-top: 2px; /* Adjust as needed */
-            padding-bottom: 10px; /* Adjust as needed */
         }
 
         .container {
@@ -101,30 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #333;
             text-align: center;
             margin-bottom: 40px;
-        }
-
-        .container-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .sidebar {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 20px;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-shrink: 0;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .form-section {
@@ -204,98 +167,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             transform: translateY(-50%);
             color: #aaa;
         }
-
-        .search-container input:focus + .search-icon {
-            color: #4d90fe;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #444;
-            font-size: 18px;
-            margin-bottom: 10px;
-            display: block;
-            transition: color 0.3s;
-        }
-
-        .sidebar a:hover {
-            color: #4d90fe;
-        }
     </style>
 </head>
-<body>
-
+<?php include 'sidebar.php'; ?>
 <div class="container">
     <h1>Patient Examination Record</h1>
 
-    <div class="container-wrapper">
-        <div class="sidebar">
-            <?php include 'sidebar.php'; ?>
-            <?php include 'navbar.php'; ?>
+    <form action="" method="post">
+        <!-- Select Examination Type -->
+        <div class="form-section">
+            <h3>Select Examination Type</h3>
+            <div class="form-group">
+                <label for="examination_type" class="form-label">Examination Type</label>
+                <select class="form-control" id="examination_type" name="examination_type" required>
+                    <option value="">Select Examination Type</option>
+                    <option value="Dental">Dental</option>
+                    <option value="Laboratory">Laboratory</option>
+                    <option value="Check-up">Check-up</option>
+                    <option value="Physical Examination">Physical Examination</option>
+                </select>
+            </div>
         </div>
 
-        <div class="main-content">
-            <form action="" method="post">
-                <!-- Select Examination Type -->
-                <div class="form-section">
-                    <h3>Select Examination Type</h3>
-                    <div class="form-group">
-                        <label for="examination_type" class="form-label">Examination Type</label>
-                        <select class="form-control" id="examination_type" name="examination_type" required>
-                            <option value="">Select Examination Type</option>
-                            <option value="Dental">Dental</option>
-                            <option value="Laboratory">Laboratory</option>
-                            <option value="Check-up">Check-up</option>
-                            <option value="Physical Examination">Physical Examination</option>
-                        </select>
-                    </div>
-                </div>
+        <!-- Select Patient -->
+        <div class="form-section">
+            <h3>Select Patient</h3>
+            <label for="search_patient" class="form-label">Search Patient</label>
+            <div class="search-container">
+                <input type="text" id="search_patient" class="form-control" placeholder="Search by name..." onkeyup="searchPatient()">
+                <i class="search-icon fas fa-search"></i>
+            </div>
+            
+            <label for="student_id" class="form-label">Patient</label>
+            <select class="form-control" id="student_id" name="student_id" required>
+                <option value="">Select Patient</option>
+                <?php
+                $sql = "SELECT id, last_name, first_name FROM students";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                <!-- Select Patient -->
-                <div class="form-section">
-                    <h3>Select Patient</h3>
-                    <label for="search_patient" class="form-label">Search Patient</label>
-                    <div class="search-container">
-                        <input type="text" id="search_patient" class="form-control" placeholder="Search by name..." onkeyup="searchPatient()">
-                        <i class="search-icon fas fa-search"></i>
-                    </div>
-                    
-                    <label for="student_id" class="form-label">Patient</label>
-                    <select class="form-control" id="student_id" name="student_id" required>
-                        <option value="">Select Patient</option>
-                        <?php
-                        // Fetch all students for dropdown
-                        $sql = "SELECT id, last_name, first_name FROM students";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='{$row['id']}'>" . htmlspecialchars($row['last_name'] . ', ' . $row['first_name']) . "</option>";
+                }
 
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<option value='{$row['id']}'>" . htmlspecialchars($row['last_name'] . ', ' . $row['first_name']) . "</option>";
-                        }
-
-                        $stmt->close();
-                        ?>
-                    </select>
-                </div>
-
-                <!-- Record Date -->
-                <div class="form-section">
-                    <h3>Record Date</h3>
-                    <div class="form-group">
-                        <label for="record_date" class="form-label">Record Date</label>
-                        <input type="date" id="record_date" name="record_date" class="form-control" required value="<?php echo date('Y-m-d'); ?>">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Proceed to form</button>
-            </form>
+                $stmt->close();
+                ?>
+            </select>
         </div>
-    </div>
+
+        <!-- Record Date -->
+        <div class="form-section">
+            <h3>Record Date</h3>
+            <div class="form-group">
+                <label for="record_date" class="form-label">Record Date</label>
+                <input type="date" id="record_date" name="record_date" class="form-control" required value="<?php echo date('Y-m-d'); ?>">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Proceed to form</button>
+    </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script>
     function searchPatient() {
         let input = document.getElementById('search_patient').value.toLowerCase();

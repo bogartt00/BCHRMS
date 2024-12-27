@@ -28,8 +28,8 @@
             text-align: center;
             padding: 5px;
         }
-        .dental-chart input:hover {
-            background-color: #f0f0f0; /* Highlight input on hover */
+        .dental-chart input:disabled {
+            background-color: #f0f0f0; /* Change background color for disabled inputs */
         }
         .container-wrapper {
             display: flex;
@@ -103,41 +103,6 @@
                 echo "<div class='alert alert-danger'>No examination selected.</div>";
                 exit;
             }
-
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $diagnosis = $_POST['diagnosis'];
-                $treatment = $_POST['treatment'];
-                $record_date = $_POST['record_date']; // Get record date
-            
-                // If record_date is empty, set it to the current date
-                if (empty($record_date)) {
-                    $record_date = date('Y-m-d'); // Set current date if empty
-                }
-            
-                // Check if patient selection is valid
-                if (empty($student_id)) {
-                    echo "<div class='alert alert-danger'>Please select a patient.</div>";
-                } else {
-                    $teeth_chart = isset($_POST['teeth']) ? $_POST['teeth'] : array();
-                    $teeth_chart_json = json_encode($teeth_chart);
-            
-                    // Prepare SQL for inserting dental record
-                    $stmt = $conn->prepare("INSERT INTO dental_examinations (examination_id, diagnosis, treatment, teeth_chart, created_at) VALUES (?, ?, ?, ?, ?)");
-            
-                    // Bind the parameters (5 parameters in total)
-                    $stmt->bind_param("issss", $examination_id, $diagnosis, $treatment, $teeth_chart_json, $record_date);
-            
-                    if ($stmt->execute()) {
-                        echo "<div class='alert alert-success'>Record added successfully</div>";
-                    } else {
-                        echo "<div class='alert alert-danger'>An error occurred while adding the record: " . $stmt->error . "</div>";
-                    }
-            
-                    $stmt->close();
-                }
-            }
-            
-            
             ?>
 
             <form action="" method="post">
@@ -159,22 +124,22 @@
                         <tbody>
                             <tr>
                                 <td>Left</td>
-                                <td><input type="text" id="18" name="teeth[18]"></td>
-                                <td><input type="text" id="17" name="teeth[17]"></td>
-                                <td><input type="text" id="16" name="teeth[16]"></td>
-                                <td><input type="text" id="15" name="teeth[15]"></td>
-                                <td><input type="text" id="14" name="teeth[14]"></td>
-                                <td><input type="text" id="13" name="teeth[13]"></td>
-                                <td><input type="text" id="12" name="teeth[12]"></td>
-                                <td><input type="text" id="11" name="teeth[11]"></td>
-                                <td><input type="text" id="21" name="teeth[21]"></td>
-                                <td><input type="text" id="22" name="teeth[22]"></td>
-                                <td><input type="text" id="23" name="teeth[23]"></td>
-                                <td><input type="text" id="24" name="teeth[24]"></td>
-                                <td><input type="text" id="25" name="teeth[25]"></td>
-                                <td><input type="text" id="26" name="teeth[26]"></td>
-                                <td><input type="text" id="27" name="teeth[27]"></td>
-                                <td><input type="text" id="28" name="teeth[28]"></td>
+                                <td><input type="text" id="18" name="teeth[18]" value="Disabled" disabled></td>
+                                <td><input type="text" id="17" name="teeth[17]" value="Disabled" disabled></td>
+                                <td><input type="text" id="16" name="teeth[16]" value="Disabled" disabled></td>
+                                <td><input type="text" id="15" name="teeth[15]" value="Disabled" disabled></td>
+                                <td><input type="text" id="14" name="teeth[14]" value="Disabled" disabled></td>
+                                <td><input type="text" id="13" name="teeth[13]" value="Disabled" disabled></td>
+                                <td><input type="text" id="12" name="teeth[12]" value="Disabled" disabled></td>
+                                <td><input type="text" id="11" name="teeth[11]" value="Disabled" disabled></td>
+                                <td><input type="text" id="21" name="teeth[21]" value="Disabled" disabled></td>
+                                <td><input type="text" id="22" name="teeth[22]" value="Disabled" disabled></td>
+                                <td><input type="text" id="23" name="teeth[23]" value="Disabled" disabled></td>
+                                <td><input type="text" id="24" name="teeth[24]" value="Disabled" disabled></td>
+                                <td><input type="text" id="25" name="teeth[25]" value="Disabled" disabled></td>
+                                <td><input type="text" id="26" name="teeth[26]" value="Disabled" disabled></td>
+                                <td><input type="text" id="27" name="teeth[27]" value="Disabled" disabled></td>
+                                <td><input type="text" id="28" name="teeth[28]" value="Disabled" disabled></td>
                             </tr>
                         </tbody>
                     </table>
@@ -192,22 +157,22 @@
                         <tbody>
                             <tr>
                                 <td>Left</td>
-                                <td><input type="text" id="48" name="teeth[48]"></td>
-                                <td><input type="text" id="47" name="teeth[47]"></td>
-                                <td><input type="text" id="46" name="teeth[46]"></td>
-                                <td><input type="text" id="45" name="teeth[45]"></td>
-                                <td><input type="text" id="44" name="teeth[44]"></td>
-                                <td><input type="text" id="43" name="teeth[43]"></td>
-                                <td><input type="text" id="42" name="teeth[42]"></td>
-                                <td><input type="text" id="41" name="teeth[41]"></td>
-                                <td><input type="text" id="31" name="teeth[31]"></td>
-                                <td><input type="text" id="32" name="teeth[32]"></td>
-                                <td><input type="text" id="33" name="teeth[33]"></td>
-                                <td><input type="text" id="34" name="teeth[34]"></td>
-                                <td><input type="text" id="35" name="teeth[35]"></td>
-                                <td><input type="text" id="36" name="teeth[36]"></td>
-                                <td><input type="text" id="37" name="teeth[37]"></td>
-                                <td><input type="text" id="38" name="teeth[38]"></td>
+                                <td><input type="text" id="48" name="teeth[48]" value="Disabled" disabled></td>
+                                <td><input type="text" id="47" name="teeth[47]" value="Disabled" disabled></td>
+                                <td><input type="text" id="46" name="teeth[46]" value="Disabled" disabled></td>
+                                <td><input type="text" id="45" name="teeth[45]" value="Disabled" disabled></td>
+                                <td><input type="text" id="44" name="teeth[44]" value="Disabled" disabled></td>
+                                <td><input type="text" id="43" name="teeth[43]" value="Disabled" disabled></td>
+                                <td><input type="text" id="42" name="teeth[42]" value="Disabled" disabled></td>
+                                <td><input type="text" id="41" name="teeth[41]" value="Disabled" disabled></td>
+                                <td><input type="text" id="31" name="teeth[31]" value="Disabled" disabled></td>
+                                <td><input type="text" id="32" name="teeth[32]" value="Disabled" disabled></td>
+                                <td><input type="text" id="33" name="teeth[33]" value="Disabled" disabled></td>
+                                <td><input type="text" id="34" name="teeth[34]" value="Disabled" disabled></td>
+                                <td><input type="text" id="35" name="teeth[35]" value="Disabled" disabled></td>
+                                <td><input type="text" id="36" name="teeth[36]" value="Disabled" disabled></td>
+                                <td><input type="text" id="37" name="teeth[37]" value="Disabled" disabled></td>
+                                <td><input type="text" id="38" name="teeth[38]" value="Disabled" disabled></td>
                             </tr>
                         </tbody>
                     </table>
@@ -216,20 +181,21 @@
                 <!-- Additional Information -->
                 <div class="form-section">
                     <label for="diagnosis">Diagnosis</label>
-                    <input type="text" class="form-control" id="diagnosis" name="diagnosis">
+                    <input type="text" class="form-control" id="diagnosis" name="diagnosis" value="Sample Diagnosis" disabled>
                 </div>
 
                 <div class="form-section">
                     <label for="treatment">Treatment</label>
-                    <input type="text" class="form-control" id="treatment" name="treatment">
+                    <input type="text" class="form-control" id="treatment" name="treatment" value="Sample Treatment" disabled>
                 </div>
 
                 <div class="form-section">
                     <label for="record_date">Record Date</label>
-                    <input type="date" class="form-control" id="record_date" name="record_date">
+                    <input type="date" class="form-control" id="record_date" name="record_date" value="2024-12-14" disabled>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <!-- No Submit Button for Read-Only Mode -->
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
             </form>
         </div>
     </div>

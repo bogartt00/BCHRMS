@@ -1,0 +1,98 @@
+/* Immunization History Styling - Updated */
+
+/* General styling for body to align with sidebar theme */
+body {
+    font-family: Arial, sans-serif; /* Match the sidebar font */
+    background-color: #f4f4f4; /* Light background to match a typical dashboard */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Table styling to match the sidebar look */
+  table, th, td {
+    border: 1px solid #ccc; /* Lighter border for consistency */
+    border-collapse: collapse;
+    padding: 12px;
+    text-align: left;
+    background-color: #fff; /* White background for table */
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Table headers */
+  th {
+    background-color: #007BFF; /* Example for primary color */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  /* Sidebar */
+  #sidebar {
+    background-color: #333; /* Dark background for sidebar */
+    color: white; /* Light text */
+    width: 250px; /* Sidebar width */
+    height: 100vh; /* Full height */
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+  }
+  
+  #sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+  }
+  
+  #sidebar a:hover {
+    background-color: #444;
+  }
+  
+  /* Sidebar active link */
+  #sidebar a.active {
+    background-color: #007BFF;
+  }
+  
+  /* Button styling */
+  button {
+    background-color: #007BFF; /* Blue button like sidebar links */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  #progress-indicator {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Page navigation styling */
+  #prevButton, #nextButton {
+    margin: 20px;
+  }
+  
+  /* Active page styling */
+  .table-container.active {
+    display: block;
+  }
+  
+  /* Page container */
+  #form-container {
+    margin-left: 250px; /* Offset for sidebar */
+    padding: 20px;
+    background-color: #fff;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  

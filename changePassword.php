@@ -7,7 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$error = '';
+// Initialize variables to avoid warnings
+$error = ''; 
 $success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -52,32 +53,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Change Password</h2>
-        <?php if ($error): ?>
-            <div class="alert alert-danger"><?= $error ?></div>
-        <?php endif; ?>
-        <?php if ($success): ?>
-            <div class="alert alert-success"><?= $success ?></div>
-        <?php endif; ?>
-        <form method="POST" action="change_password.php">
-            <div class="mb-3">
-                <label for="current_password" class="form-label">Current Password</label>
-                <input type="password" class="form-control" id="current_password" name="current_password" required>
-            </div>
-            <div class="mb-3">
-                <label for="new_password" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="new_password" name="new_password" required>
-            </div>
-            <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirm New Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-            </div>
-            <button type="submit" class="btn btn-success">Change Password</button>
-        </form>
+    <div class="sidebar">
+        <?php include 'sidebar.php'; ?>
+    </div>
+    <div class="main-content">
+        <div class="container mt-5">
+            <h2>Change Password</h2>
+            <?php if ($error): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            <?php if ($success): ?>
+                <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
+            <form method="POST" action="changePassword.php">
+                <div class="mb-3">
+                    <label for="current_password" class="form-label">Current Password</label>
+                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-success">Change Password</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
-            

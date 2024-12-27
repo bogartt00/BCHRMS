@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2024 at 06:16 PM
+-- Generation Time: Oct 12, 2024 at 04:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,23 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `bchrms`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dental_examinations`
---
-
-CREATE TABLE `dental_examinations` (
-  `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `diagnosis` text NOT NULL,
-  `treatment` text NOT NULL,
-  `record_date` date NOT NULL,
-  `teeth_chart` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`teeth_chart`)),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `examination_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -172,14 +155,6 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 --
 
 --
--- Indexes for table `dental_examinations`
---
-ALTER TABLE `dental_examinations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `examination_id` (`examination_id`);
-
---
 -- Indexes for table `examinations`
 --
 ALTER TABLE `examinations`
@@ -215,12 +190,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `dental_examinations`
---
-ALTER TABLE `dental_examinations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `examinations`
 --
 ALTER TABLE `examinations`
@@ -241,13 +210,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `dental_examinations`
---
-ALTER TABLE `dental_examinations`
-  ADD CONSTRAINT `dental_examinations_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `dental_examinations_ibfk_2` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`);
 
 --
 -- Constraints for table `examinations`

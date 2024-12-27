@@ -2,120 +2,29 @@
 <html>
 <head>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
-    .container-wrapper {
-      display: flex;
-    }
-
-    .sidebar {
-      width: 20%;
-      background-color: #f4f4f4;
-      padding: 15px;
-      border-right: 1px solid #ddd;
-    }
-
-    .main-content {
-      width: 80%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    /* Table Styles */
-    table {
+    table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
-      width: 60%;
-      margin: 10px auto;
-    }
-
-    th, td {
-      border: 1px solid black;
       padding: 8px;
       text-align: left;
+      width: 100%;
     }
-
-    th {
-      background-color: #f0f0f0;
-    }
-
-    tr:hover {
-      background-color: #f9f9f9;
-    }
-
-    /* Centering Tables */
     .table-container {
       display: none;
     }
 
     .table-container.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: block;
     }
 
-    /* Progress Indicator */
-    #progress-indicator {
-      text-align: center;
-      margin: 15px;
-    }
-
-    /* Buttons */
     button {
       margin: 10px;
       padding: 8px 16px;
-      font-size: 16px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
     }
 
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-
-    input[type="text"] {
-      border: none;
-      border-bottom: 1px solid black;
-      outline: none;
-      width: 300px; /* Adjusted width for larger inputs */
-      vertical-align: middle;
-      margin-right: 10px; /* Add spacing between inputs */
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main-content {
-        width: 100%;
-      }
-
-      table {
-        width: 100%;
-      }
+    #progress-indicator {
+      text-align: center;
+      margin: 10px;
     }
   </style>
 </head>
@@ -181,7 +90,7 @@
     <h2>C. Family History</h2>
     <table>
       <tr>
-        <th>Diseases</th>
+        <th></th>
         <th>No</th>
         <th>Yes</th>
         <th>Remarks</th>
@@ -272,8 +181,6 @@
     // Initialize
     showPage(currentPage);
   </script>
-
-</div>
 </body>
 </html>
 

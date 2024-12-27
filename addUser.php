@@ -7,14 +7,16 @@ $userAdded = false; // Flag to check if user was added
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $role = $_POST['role']; // Get the role from the form
 
     // Hash the password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert into database
-    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+    $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)");
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $hashed_password);
+    $stmt->bindParam(':role', $role); // Bind the role parameter
 
     if ($stmt->execute()) {
         $userAdded = true; // Set flag to true if user added successfully
@@ -58,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container mt-5" style="margin-left: 250px;"> <!-- Adjust margin-left to fit sidebar width -->
         <div class="card mx-auto" style="max-width: 500px;">
             <div class="card-header text-center">
-                <h2>Add New Admin</h2>
+                <h2>Add New User</h2>
             </div>
             <div class="card-body">
                 <form method="POST" action="addUser.php">
@@ -76,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <option value="dentist">Dentist</option>
                             <option value="doctor">Doctor</option>
                             <option value="nurse">Nurse</option>
+                            <option value="user">User</option> <!-- Add User role option if needed -->
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success w-100">Add User</button>

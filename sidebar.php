@@ -1,7 +1,16 @@
+<?php
+// Ensure session_start() is called only once and at the beginning
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();  // Start the session if not already started
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <!-- Include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         /* Sidebar styles */
         .sidebar {
@@ -83,86 +92,115 @@
     </style>
 </head>
 
-<!-- Sidebar HTML (Always Visible) -->
-<div class="sidebar">
-    <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <img src="BCHRMS_Logo1.png" alt="BCHRMS Logo">
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="text-center" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <img src="BCHRMS_Logo1.png" alt="BCHRMS Logo">
+        </div>
+        <ul class="nav flex-column">
+            <!-- Home -->
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </li>
+
+            <!-- Departments Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#departmentCollapse" role="button" aria-expanded="false"
+                    aria-controls="departmentCollapse">
+                    <i class="fa-solid fa-building"></i> Departments
+                </a>
+                <div class="collapse" id="departmentCollapse">
+                    <ul class="nav flex-column collapse-menu">
+                        <li><a class="nav-link" href="dept_nursing.php">Nursing</a></li>
+                        <li>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#alliedHealthCollapse" role="button"
+                                aria-expanded="false" aria-controls="alliedHealthCollapse">
+                                Allied Health
+                            </a>
+                            <div class="collapse" id="alliedHealthCollapse">
+                                <ul class="nav flex-column collapse-menu">
+                                    <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
+                                    <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#asbmCollapse" role="button" aria-expanded="false"
+                                aria-controls="asbmCollapse">
+                                ASBME
+                            </a>
+                            <div class="collapse" id="asbmCollapse">
+                                <ul class="nav flex-column collapse-menu">
+                                    <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
+                                    <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
+                                    <li><a class="nav-link" href="dept_education.php">Education</a></li>
+                                    <li><a class="nav-link" href="dept_psychology.php">Psychology</a></li>
+                                    <li><a class="nav-link" href="dept_theology.php">Theology</a></li>
+                                    <li><a class="nav-link" href="dept_hm.php">Hotel Management</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Patients (All Students) -->
+            <li class="nav-item">
+                <a class="nav-link active" href="all_students.php">
+                    <i class="fa-solid fa-users"></i> Patients
+                </a>
+            </li>
+
+            <!-- Add Patients -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#addPatientsCollapse" role="button"
+                    aria-expanded="false" aria-controls="addPatientsCollapse">
+                    <i class="fa-solid fa-user-plus"></i> Add Patients
+                </a>
+                <div class="collapse" id="addPatientsCollapse">
+                    <ul class="nav flex-column collapse-menu">
+                        <li><a class="nav-link" href="addStudent.php">Students</a></li>
+                        <li><a class="nav-link" href="addEmployee.php">Employees</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Add Health Records -->
+            <li class="nav-item">
+                <a class="nav-link" href="add_health_record.php">
+                    <i class="fa-solid fa-notes-medical"></i> Add Health Record
+                </a>
+            </li>
+
+            <!-- User Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#userDropdown" role="button" aria-expanded="false" aria-controls="userDropdown">
+                    <i class="fa-solid fa-user"></i> 
+                    <span id="user-role">
+                        <?php
+                        // Display the logged-in user's role dynamically
+                        if (isset($_SESSION['role'])) {
+                            echo "Logged in as: " . $_SESSION['role']; // Display the role from the session
+                        } else {
+                            echo "Not logged in"; // Default text if the user is not logged in
+                        }
+                        ?>
+                    </span>
+                </a>
+                <div class="collapse" id="userDropdown">
+                    <ul class="nav flex-column collapse-menu">
+                        <?php if ($_SESSION['role'] == 'Nurse'): ?>
+                            <li><a class="nav-link" href="addUser.php"><i class="fa-solid fa-user-plus"></i> Add User</a></li>
+                        <?php endif; ?>
+                        <li><a class="nav-link" href="changePassword.php"><i class="fa-solid fa-key"></i> Change Password</a></li>
+                        <li><a class="nav-link" href="logout.php"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </div>
-    <ul class="nav flex-column">
-        <!-- Home -->
-        <li class="nav-item">
-            <a class="nav-link active" href="index.php">
-                <i class="fa-solid fa-house"></i> Home
-            </a>
-        </li>
-
-        <!-- Departments Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#departmentCollapse" role="button" aria-expanded="false"
-                aria-controls="departmentCollapse">
-                <i class="fa-solid fa-building"></i> Departments
-            </a>
-            <div class="collapse" id="departmentCollapse">
-                <ul class="nav flex-column collapse-menu">
-                    <li><a class="nav-link" href="dept_nursing.php">Nursing</a></li>
-                    <li>
-                        <a class="nav-link" data-bs-toggle="collapse" href="#alliedHealthCollapse" role="button"
-                            aria-expanded="false" aria-controls="alliedHealthCollapse">
-                            Allied Health
-                        </a>
-                        <div class="collapse" id="alliedHealthCollapse">
-                            <ul class="nav flex-column collapse-menu">
-                                <li><a class="nav-link" href="dept_medtech.php">Medical Technology</a></li>
-                                <li><a class="nav-link" href="dept_pharmacy.php">Pharmacy</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="nav-link" data-bs-toggle="collapse" href="#asbmCollapse" role="button" aria-expanded="false"
-                            aria-controls="asbmCollapse">
-                            ASBME
-                        </a>
-                        <div class="collapse" id="asbmCollapse">
-                            <ul class="nav flex-column collapse-menu">
-                                <li><a class="nav-link" href="dept_it.php">Information Technology</a></li>
-                                <li><a class="nav-link" href="dept_ba.php">Business Administration</a></li>
-                                <li><a class="nav-link" href="dept_education.php">Education</a></li>
-                                <li><a class="nav-link" href="dept_psychology.php">Psychology</a></li>
-                                <li><a class="nav-link" href="dept_theology.php">Theology</a></li>
-                                <li><a class="nav-link" href="dept_hm.php">Hotel Management</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Patients (All Students) -->
-        <li class="nav-item">
-            <a class="nav-link active" href="all_students.php">
-                <i class="fa-solid fa-users"></i> Patients
-            </a>
-        </li>
-
-        <!-- Add Patients -->
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#addPatientsCollapse" role="button"
-                aria-expanded="false" aria-controls="addPatientsCollapse">
-                <i class="fa-solid fa-user-plus"></i> Add Patients
-            </a>
-            <div class="collapse" id="addPatientsCollapse">
-                <ul class="nav flex-column collapse-menu">
-                    <li><a class="nav-link" href="addStudent.php">Students</a></li>
-                    <li><a class="nav-link" href="addEmployee.php">Employees</a></li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Add Health Records -->
-        <li class="nav-item">
-            <a class="nav-link" href="add_health_record.php">
-                <i class="fa-solid fa-notes-medical"></i> Add Health Record
-            </a>
-        </li>
-    </ul>
-</div>
+</body>
+</html>

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':gender', $gender);
 
     if ($stmt->execute()) {
-        $feedback = "<div class='alert alert-success'>Student added successfully!</div>";
+        $feedback = "<div class='alert alert-success'>Patient added successfully!</div>";
     } else {
         $feedback = "<div class='alert alert-danger'>Error adding student.</div>";
     }
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student</title>
+    <title>Add Patient</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -81,11 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <!-- Include sidebar -->
-    <?php include 'sidebar.php'; ?>
+    <?php include 'user_sidebar.php'; ?>
 
     <div class="main-content">
         <div class="container mt-5">
-            <h2>Add New Student</h2>
+            <h2>Add New Patient</h2>
 
             <!-- Display feedback message if available -->
             <?php echo $feedback; ?>
@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="Theology">Theology</option>
                         <option value="Hotel Management">Hotel Management</option>
                         <option value="Information Technology">Information Technology</option>
+                        <option value="Employee">Employee</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="Female">Female</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Add Student</button>
+                <button type="submit" class="btn btn-success">Add Patient</button>
             </form>
         </div>
     </div>

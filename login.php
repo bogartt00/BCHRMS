@@ -4,10 +4,18 @@ require 'config.php';
 
 if (isset($_SESSION['user_id'])) {
     // Redirect based on role if already logged in
-    if ($_SESSION['role'] === 'staff') {
-        header('Location: staff_dashboard.php');
-    } else {
-        header('Location: index.php');
+    switch ($_SESSION['role']) {
+        case 'Doctor':
+            header('Location: index.php');
+            break;
+        case 'Dentist':
+            header('Location: dentist_dashboard.php');
+            break;
+        case 'Nurse':
+            header('Location: nurse_dashboard.php');
+            break;
+        case 'User':
+            header('Location: user_dashboard.php');
     }
     exit;
 }
@@ -31,10 +39,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['role'] = $user['role']; // store user's role
 
         // Redirect based on role
-        if ($user['role'] === 'staff') {
-            header('Location: staffD  ashboard.php');
-        } else {
-            header('Location: index.php');
+        switch ($user['role']) {
+            case 'Doctor':
+                header('Location: index.php');
+                break;
+            case 'Dentist':
+                header('Location: dentist_dashboard.php');
+                break;
+            case 'Nurse':
+                header('Location: nurse_dashboard.php');
+                break;
+            default:
+                header('Location: user_dashboard.php');
         }
         exit;
     } else {
